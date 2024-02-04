@@ -1,0 +1,20 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>Blog</title>
+{% endblock title %}
+
+{% block content %}
+    <h1>Blogs</h1>
+    <ul>
+      {% for blog in object_list %}
+      <li>
+        <a href="{% url 'blog-detail' blog.pk %}"> {{ blog.title }}</a> - {{ blog.author.first_name }} {{ blog.author.last_name }}
+        <br />
+        {{ blog.body}}
+      </li>
+      {% endfor %}
+    </ul>
+
+{% endblock %}
