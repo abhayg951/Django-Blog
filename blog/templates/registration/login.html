@@ -2,12 +2,11 @@
 {% extends "base.html" %}
 
 {% block title %}
-<title>Add Blog Post</title>
+<title>Member Login</title>
 {% endblock title %}
 
 {% block content %}
-{% if user.is_authenticated %}
-<h1>Add Blog</h1>
+<h1>Login</h1>
 <br><br>
 <form method="post">
   {% csrf_token %}
@@ -16,7 +15,4 @@
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
 </form>
-{% else %}
-<strong> Not Authorized </strong>
-{% endif %}
 {% endblock %}

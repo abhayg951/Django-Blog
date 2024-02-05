@@ -1,0 +1,19 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>Edit Blog</title>
+{% endblock title %}
+
+{% block content %}
+<h1>Delete Blog</h1>
+<br><br>
+<h3>Deleting:- {{ object.title }}</h3>
+<form method="post">
+  {% csrf_token %}
+  <strong>Are you sure?</strong>
+  <br><br>
+  <button type="submit" class="btn btn-danger">Yes</button>
+  <a href="{% url 'home' %}" class="btn btn-secondary"> No</a>
+</form>
+{% endblock %}

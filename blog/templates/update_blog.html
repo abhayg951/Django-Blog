@@ -2,12 +2,12 @@
 {% extends "base.html" %}
 
 {% block title %}
-<title>Add Blog Post</title>
+<title>Edit Blog</title>
 {% endblock title %}
 
 {% block content %}
 {% if user.is_authenticated %}
-<h1>Add Blog</h1>
+<h1>Edit Blog</h1>
 <br><br>
 <form method="post">
   {% csrf_token %}

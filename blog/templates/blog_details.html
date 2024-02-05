@@ -8,13 +8,17 @@
 {% block content %}
 
 <h1> {{ object.title }} </h1>
-<span> #{{object.title_tag }}</span>
+<small>created_at: {{ object.created_at }}</small>
+<br>
 <br>
 <small>By: {{ object.author.first_name }} {{ object.author.last_name }}</small> <br>
 <hr>
 {{ object.body }}
 
 <br><br>
+{% if user.is_authenticated %}
+<a href="{% url 'blog-edit' object.pk %}"  class="btn btn-primary">Edit</a>
+{% endif %}
 <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
 
 {% endblock content %}
