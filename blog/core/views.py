@@ -1,3 +1,4 @@
+from django.shortcuts import render
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from . import models
 from .forms import BlogPostForm, UpdateBlogPostForm
@@ -30,3 +31,13 @@ class DeleteBlogView(DeleteView):
     model = models.BlogPost
     template_name = 'delete_blog.html'
     success_url = reverse_lazy('home')
+
+
+class CreateCategoryView(CreateView):
+    model = models.Category
+    template_name = 'add_category.html'
+    fields = "__all__"
+
+def CategoryView(request, cats):
+    category_post = models.BlogPost.objects.filter(category=cats.replace("-", " "))
+    return render(request, 'categories.html', {'cats':cats, 'category_post':category_post})

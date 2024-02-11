@@ -1,15 +1,24 @@
 from django import forms
-from .models import BlogPost
+from .models import BlogPost, Category
+
+cats_choices = list()
+choices = Category.objects.all().values_list('name', 'name')
+
+for i in choices:
+    cats_choices.append(i)
+
+print(cats_choices)
 
 class BlogPostForm(forms.ModelForm):
     class Meta:
         model = BlogPost
-        fields = ('title', 'title_tag', 'author', 'body')
+        fields = ('title', 'title_tag', 'author', 'category', 'body')
 
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'title_tag': forms.TextInput(attrs={'class': 'form-control'}),
             'author': forms.Select(attrs={'class': 'form-select'}),
+            'category': forms.Select(choices=cats_choices, attrs={'class': 'form-select'}),
             'body': forms.Textarea(attrs={'class': 'form-control'})
         } 
 

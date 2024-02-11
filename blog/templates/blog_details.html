@@ -8,12 +8,12 @@
 {% block content %}
 
 <h1> {{ object.title }} </h1>
+<h6><span class="badge bg-secondary">{{ object.category }}</span></h6>
 <small>created_at: {{ object.created_at }}</small>
-<br>
 <br>
 <small>By: {{ object.author.first_name }} {{ object.author.last_name }}</small> <br>
 <hr>
-{{ object.body }}
+{{ object.body | safe}}
 
 <br><br>
 {% if user.is_authenticated %}
