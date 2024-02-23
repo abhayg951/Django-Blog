@@ -15,6 +15,10 @@
     {{ form.as_p }}
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
+  <script>
+    var author_id = "{{ user.id }}";
+    document.getElementById("author_id").value = author_id
+  </script>
 </form>
 {% else %}
 <strong> Not Authorized </strong>

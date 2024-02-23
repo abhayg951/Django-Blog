@@ -1,0 +1,10 @@
+{% extends "base.html" %} 
+{% block content %} 
+    {% block title %}
+    <title> Categories </title> {% endblock title %} 
+    <h2> Categories </h2>
+    {% for cate in cate_list %}
+    <a class="text-decoration-none" href="{% url 'get-category' cate|slugify %}"><h4>{{ cate }} </h4></a>
+    {% endfor %}
+
+{% endblock %}

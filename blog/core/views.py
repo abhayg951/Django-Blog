@@ -11,9 +11,22 @@ class HomeView(ListView):
     template_name = 'index.html'
     ordering = ["-created_at"]
 
+    def get_context_data(self, **kwargs):
+        categories = models.Category.objects.all()
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context["cate_menu"] = categories
+        return context
+    
+
 class BlogDetailView(DetailView):
     model = models.BlogPost
     template_name = 'blog_details.html'
+
+    def get_context_data(self, **kwargs):
+        categories = models.Category.objects.all()
+        context = super(BlogDetailView, self).get_context_data(**kwargs)
+        context["cate_menu"] = categories
+        return context
 
 class CreateBlogView(CreateView):
     model = models.BlogPost
@@ -40,4 +53,8 @@ class CreateCategoryView(CreateView):
 
 def CategoryView(request, cats):
     category_post = models.BlogPost.objects.filter(category=cats.replace("-", " "))
-    return render(request, 'categories.html', {'cats':cats, 'category_post':category_post})
+    return render(request, 'categories.html', {'cats':cats.replace("-", " "), 'category_post':category_post})
+
+def CategoryListView(request):
+    category_list = models.Category.objects.filter()
+    return render(request, 'category_list.html', {'cate_list':category_list})
