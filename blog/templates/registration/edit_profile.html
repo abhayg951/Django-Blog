@@ -19,7 +19,8 @@
   "
   >
 {% else %}
-  <img src="https://static.thenounproject.com/png/363640-200.png" class="img-fluid rounded-circle ratio ratio-1x1" 
+  {% load static %}
+  <img src="{% static 'default_pics/download.jpeg' %}" class="img-fluid rounded-circle ratio ratio-1x1" 
   alt="..."
   style="
   height: 150px;

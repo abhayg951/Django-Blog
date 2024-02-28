@@ -46,12 +46,13 @@ likes - {{ like_numbers }}
 <br>
 <div class="card mb-3">
     <div class="row g-0">
-      <div class="col-md-2">
+      <div class="col-md-2" style="width: 200px;">
         {% if object.author.userprofile.profile_pic %}
         <img src="{{ object.author.userprofile.profile_pic.url }}" class="img-fluid rounded-start object-fit-cover" alt="..." style="height: 200px; width: 100%;"
         >
         {% else %}
-        <img src="https://static.thenounproject.com/png/363640-200.png" class="img-fluid rounded-start object-fit-cover" alt="..." style="height: 200px; width: 100%;"
+        {% load static %}
+        <img src="{% static "default_pics/download.jpeg" %}" class="img-fluid rounded-start object-fit-cover" alt="..." style="height: 200px; width: 100%;"
         >
         {% endif %}
       </div>
