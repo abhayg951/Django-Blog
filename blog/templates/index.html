@@ -68,13 +68,25 @@
     <div class="card mb-3 shadow-lg p-3 bg-body rounded" style="max-width: 540px;">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="https://hips.hearstapps.com/hmg-prod/images/nature-quotes-landscape-1648265299.jpg?crop=0.676xw:1.00xh;0.148xw,0&resize=640:*" class="img-fluid rounded-start" alt="...">
+          {% if blog.header_img %}
+          <img src="{{ blog.header_img.url}}" class="img-fluid rounded-start" alt="..." 
+          style="
+          object-fit: cover;
+          height: -webkit-fill-available;"
+          >
+          {% else %}
+          <img src="https://hips.hearstapps.com/hmg-prod/images/nature-quotes-landscape-1648265299.jpg?crop=0.676xw:1.00xh;0.148xw,0&resize=640:*" class="img-fluid rounded-start" alt="..." style="
+          object-fit: cover;
+          height: -webkit-fill-available;
+      ">
+          {% endif %}
         </div>
         <div class="col-md-8">
           <div class="card-body">
             <h6 class="card-title"><a class="text-decoration-none" href="{% url 'blog-detail' blog.pk %}"> {{ blog.title }}</a> - 
               <a class="text-decoration-none" href="{% url 'get-category' blog.category|slugify %}"> {{ blog.category }}</a></h6>
-            <p class="card-text">{{ blog.body|slice:":50" | safe}}</p>
+            {% comment %} <p class="card-text">{{ blog.body |slice:":100" | safe}}</p> {% endcomment %}
+            <p class="card-text">{{ blog.snippets }}</p>
             <p class="card-text"><small class="text-body-secondary">created at {{ blog.created_at }}</small></p>
             {% if user.is_authenticated %}
             {% if user.id == blog.author.id %}
@@ -90,3 +102,5 @@
   {% endfor %}
 </div>
 {% endblock %}
+
+

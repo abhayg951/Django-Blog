@@ -9,9 +9,11 @@
 {% if user.is_authenticated %}
 <h1>Add Blog</h1>
 <br><br>
-<form method="post">
+<div class="form-group">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
   <div class="mb-3">
+    {{ form.media }}
     {{ form.as_p }}
   </div>
   <button type="submit" class="btn btn-primary">Submit</button>
@@ -20,6 +22,7 @@
     document.getElementById("author_id").value = author_id
   </script>
 </form>
+</div>
 {% else %}
 <strong> Not Authorized </strong>
 {% endif %}

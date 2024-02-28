@@ -12,6 +12,10 @@
 <br>
 <small>By: {{ object.author.first_name }} {{ object.author.last_name }}</small> <br>
 <hr>
+{% if object.header_img %}
+    <img src="{{ object.header_img.url}}" class="img-fluid mx-auto d-block" alt="..." height="200" width="500" >
+{% endif %}
+<br>
 {{ object.body | safe}}
 
 <br><br>
@@ -21,5 +25,56 @@
 {% endif %}
 {% endif %}
 <a href="{% url 'home' %}" class="btn btn-secondary">Back</a>
+<br><br>
+{% if user.is_authenticated %}
+<hr>
+<br>
+<form action="{% url 'blog-like' object.pk %}" method="POST">
+    {% csrf_token %}
+    {% if liked %}
+        <button type="submit", name="blog_id", value="{{ object.pk }}", class="btn btn-danger btn-sm">Unlike</button>
+    {% else %}
+        <button type="submit", name="blog_id", value="{{ object.pk }}", class="btn btn-primary btn-sm">Like</button>
+    {% endif %}
+</form>
+{% endif %}
 
+likes - {{ like_numbers }}
+<br>
+<hr>
+<h3>About author</h3>
+<br>
+<div class="card mb-3">
+    <div class="row g-0">
+      <div class="col-md-2">
+        {% if object.author.userprofile.profile_pic %}
+        <img src="{{ object.author.userprofile.profile_pic.url }}" class="img-fluid rounded-start object-fit-cover" alt="..." style="height: 200px; width: 100%;"
+        >
+        {% else %}
+        <img src="https://static.thenounproject.com/png/363640-200.png" class="img-fluid rounded-start object-fit-cover" alt="..." style="height: 200px; width: 100%;"
+        >
+        {% endif %}
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">{{ object.author.first_name }} {{ object.author.last_name }}</h5>
+          <p class="card-text"><small class="text-body-secondary">
+            {% if object.author.userprofile.linkedin_url %}
+            <a href="https://www.linkedin.com/in/abhay-gupta-227b65247/">Linkedin</a>
+            {% endif %}
+            {% if object.author.userprofile.github_url %}
+            | <a href="">Github</a>
+            {% endif %}
+            {% if object.author.userprofile.instagram_url %}
+            | <a href="">Instagram</a>
+            {% endif %}
+            {% if object.author.userprofile.stackOverflow_url %}
+            | <a href="">StackOverflow </a>
+            {% endif %}
+        </small></p>
+          <p class="card-text">{{ object.author.userprofile.bio }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 {% endblock content %}
