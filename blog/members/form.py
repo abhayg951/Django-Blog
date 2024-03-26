@@ -1,6 +1,7 @@
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
 from django.contrib.auth.models import User
 from django import forms
+from .models import UserProfile
 
 class CustomSignUpForm(UserCreationForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
@@ -48,3 +49,18 @@ class CustomPasswordChangeForm(PasswordChangeForm):
         self.fields['old_password'].widget.attrs['class'] = 'form-control'
         self.fields['new_password1'].widget.attrs['class'] = 'form-control'
         self.fields['new_password2'].widget.attrs['class'] = 'form-control'
+
+class EditPublicProfileForm(forms.ModelForm):
+
+    class Meta:
+        model = UserProfile
+        fields = ("profile_pic", "bio", "linkedin_url", "stackOverflow_url", "github_url", "instagram_url")
+        
+        widgets = {
+            'profile_pic': forms.FileInput(attrs={'class': 'form-control'}),
+            'bio': forms.Textarea(attrs={'class': 'form-control'}),
+            'linkedin_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'stackOverflow_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'github_url': forms.TextInput(attrs={'class': 'form-control'}),
+            'instagram_url': forms.TextInput(attrs={'class': 'form-control'})
+        }

@@ -11,6 +11,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
+
   </head>
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark"  data-bs-theme="dark">
@@ -91,6 +92,11 @@
                   </button>
                   <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                     <li><a class="dropdown-item" href="{% url "edit-profile" %}">Edit Profile</a></li>
+                    {% if user.userprofile.id %}
+                    <li><a class="dropdown-item" href="{% url "user-profile" user.userprofile.id%}">View Public Profile</a></li>
+                    {% else %}
+                    <li><a class="dropdown-item" href="{% url "create-public-profile" user.pk %}">Create Public Profile</a></li>
+                    {% endif %}
                     {% comment %} <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
                     <form method="post" action="{% url 'logout' %}">

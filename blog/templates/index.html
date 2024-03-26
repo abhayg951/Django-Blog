@@ -71,13 +71,16 @@
           {% if blog.header_img %}
           <img src="{{ blog.header_img.url}}" class="img-fluid rounded-start" alt="..." 
           style="
-          object-fit: cover;
-          height: -webkit-fill-available;"
+          object-fit: fill;
+          height: 160px;
+          width: 169px;"
           >
+          <!-- height: -webkit-fill-available; -->
           {% else %}
           <img src="https://hips.hearstapps.com/hmg-prod/images/nature-quotes-landscape-1648265299.jpg?crop=0.676xw:1.00xh;0.148xw,0&resize=640:*" class="img-fluid rounded-start" alt="..." style="
-          object-fit: cover;
-          height: -webkit-fill-available;
+          object-fit: fill;
+          height: 160px;
+          width: 169px;"
       ">
           {% endif %}
         </div>

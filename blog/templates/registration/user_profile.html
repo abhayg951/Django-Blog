@@ -1,0 +1,156 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+<title>Blog</title>
+{% endblock title %}
+
+{% block content %}
+
+{% load static %}
+<link href="{% static "css/style.css" %}" rel="stylesheet" id="bootstrap-css">
+
+<div class="container emp-profile">
+            <!-- <form method="post"> -->
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="profile-img">
+                            {% if page_user.profile_pic %}
+                            <img src="{{ page_user.profile_pic.url }}" alt="..."
+                            >
+                            {% else %}
+                            {% load static %}
+                            <img src="{% static "default_pics/download.jpeg" %}"
+                            >
+                            {% endif %}
+                        </div>
+                            <div class="profile-work">
+                                <p>Links</p>
+                                {% if page_user.linkedin_url %}
+                                <a href="{{page_user.linkedin_url }}">Linkedin</a><br/>
+                                {% endif %}
+                                {% if page_user.github_url %}
+                                <a href="{{page_user.github_url }}">Github</a><br/>
+                                {% endif %}
+                                {% if page_user.instagram_url %}
+                                <a href="{{page_user.instagram_url }}">Instagram</a><br/>
+                                {% endif %}
+                                {% if page_user.stackOverflow_url %}
+                                <a href="{{page_user.stackOverflow_url }}">StackOverflow </a><br/>
+                                {% endif %}
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="profile-head">
+                                    <h5>
+                                        {{ page_user.user.first_name }} {{ page_user.user.last_name }}
+                                    </h5>
+                                    <h6>
+                                        {{ page_user.bio }}
+                                    </h6>
+                                    <!-- <p class="proile-rating">RANKINGS : <span>8/10</span></p> -->
+                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link tab-nav-link active show-link" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">About</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link tab-nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Blogs</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="tab-content profile-tab" id="myTabContent">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>User Id</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ page_user.user.username }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Name</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ page_user.user.first_name }} {{ page_user.user.last_name }}</p>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Email</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>{{ page_user.user.email }}</p>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="row">
+                                            <div class="col-md-6">
+                                                <label>Profession</label>
+                                            </div>
+                                            <div class="col-md-6">
+                                                <p>Web Developer and Designer</p>
+                                            </div>
+                                        </div> -->
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                {% if page_user_blogs %}
+                                {% for blogs in page_user_blogs %}
+                                <div class="card mb-3 shadow-lg p-3 bg-body rounded" style="max-width: 540px;">
+                                    <div class="row g-0">
+                                      <div class="col-md-4">
+                                        {% if blogs.header_img %}
+                                        <img src="{{ blogs.header_img.url }}" class="img-fluid rounded-start" alt=".." 
+                                        style="
+                                        object-fit: cover;
+                                        height: -webkit-fill-available;"
+                                        >
+                                        {% else %}
+                                        <img src="https://hips.hearstapps.com/hmg-prod/images/nature-quotes-landscape-1648265299.jpg?crop=0.676xw:1.00xh;0.148xw,0&resize=640:*" class="img-fluid rounded-start" alt="..." style="
+                                        object-fit: cover;
+                                        height: -webkit-fill-available;
+                                    ">
+                                        {% endif %}
+                                      </div>
+                                      <div class="col-md-8">
+                                        <div class="card-body">
+                                          <h6 class="card-title"><a class="text-decoration-none" href="{% url 'blog-detail' blogs.pk %}"> {{ blogs.title }}</a> - 
+                                            <a class="text-decoration-none" href="{% url 'get-category' blogs.category|slugify %}"> {{ blogs.category }}</a></h6>
+                                          {% comment %} <p class="card-text">{{ blogs.body |slice:":100" | safe}}</p> {% endcomment %}
+                                          <p class="card-text">{{ blogs.snippets }}</p>
+                                          <p class="card-text"><small class="text-body-secondary">created at {{ blogs.created_at }}</small></p>
+                                          <!-- {% if user.is_authenticated %}
+                                          {% if user.id == blog.author.id %}
+                                          <a href="{% url "blog-edit" blog.pk %}" class="card-link">Edit</a>
+                                          <a href="{% url "blog-delete" blog.pk %}" class="card-link">Delete</a>
+                                          {% endif %}
+                                          {% endif %} -->
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                {% endfor %}
+                                {% else %}
+                                <p>No blogs to be displayed; <a href="{% url "blog-add" %}">create one.</a></p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    {% if page_user.user.pk == user.pk %}
+                    <div class="col-md-2">
+                        <a class="profile-edit-btn" name="btnAddMore" href="{% url "edit-public-profile" page_user.pk%}">Edit Profile</a>
+                        <!-- <input type="submit" class="profile-edit-btn" name="btnAddMore" value="Edit Profile"/> -->
+                    </div>
+                    {% endif %}
+                </div>
+                <div class="row">
+                    
+                </div>
+            <!-- </form>-->
+        </div>
+        {% load static %}
+        <script src="{% static "js/main.js" %}"/>
+          
+{% endblock %}
