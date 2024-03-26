@@ -92,10 +92,10 @@
                   </button>
                   <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                     <li><a class="dropdown-item" href="{% url "edit-profile" %}">Edit Profile</a></li>
-                    {% if user.userprofile.id %}
-                    <li><a class="dropdown-item" href="{% url "user-profile" user.userprofile.id%}">View Public Profile</a></li>
+                    {% if user.profile.id %}
+                    <li><a class="dropdown-item" href="{% url "user-profile" user.profile.id%}">View Public Profile</a></li>
                     {% else %}
-                    <li><a class="dropdown-item" href="{% url "create-public-profile" user.pk %}">Create Public Profile</a></li>
+                    <li><a class="dropdown-item" href="{% url "create-public-profile" user.pk %}">{{ user.profile.id }}</a></li>
                     {% endif %}
                     {% comment %} <li><a class="dropdown-item" href="#">Another action</a></li>
                     <li><a class="dropdown-item" href="#">Something else here</a></li> {% endcomment %}
