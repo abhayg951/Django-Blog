@@ -28,4 +28,5 @@ urlpatterns = [
     path("member/", include("django.contrib.auth.urls")),
     path("member/", include("members.urls")),
     path("<int:id>/password/", ChangePasswordView.as_view()),
+    path("api/", include("api.urls"))
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

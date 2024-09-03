@@ -5,7 +5,7 @@ from django.urls import reverse
 # Create your models here.
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, null= True, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, null= True, on_delete=models.CASCADE, related_name='profile')
     bio = models.TextField()
     profile_pic = models.ImageField(upload_to='images/profile', null=True, blank=True)
     linkedin_url = models.CharField(max_length=255, null=True, blank=True)
